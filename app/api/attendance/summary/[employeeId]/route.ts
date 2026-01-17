@@ -6,13 +6,13 @@ import EmployeeModel from "@/lib/models/employee";
 // GET attendance summary for a specific employee
 export async function GET(
   request: NextRequest,
-  { params }: { params: { employeeId: string } }
+  context: { params: Promise<{ employeeId: string }> }
 ) {
   try {
     await connectDB();
     
     // Await params in Next.js 15
-    const { employeeId } = await params;
+    const { employeeId } = await context.params;
 
     // Check if employee exists
     const employee = await EmployeeModel.findOne({ employeeId });

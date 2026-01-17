@@ -6,13 +6,13 @@ import AttendanceModel from "@/lib/models/attendance";
 // DELETE employee by ID
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
     
     // Await params in Next.js 15
-    const { id } = await params;
+    const { id } = await context.params;
 
     const employee = await EmployeeModel.findById(id);
 

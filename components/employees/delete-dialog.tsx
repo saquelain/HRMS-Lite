@@ -12,14 +12,12 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { Employee } from "@/types";
 
 interface DeleteDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  employee: {
-    _id: string;
-    fullName: string;
-  } | null;
+  employee: Employee | null;
   onSuccess: () => void;
 }
 
@@ -32,7 +30,7 @@ export default function DeleteDialog({
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
-    if (!employee) return;
+    if (!employee || !employee._id) return;
     setLoading(true);
 
     try {
